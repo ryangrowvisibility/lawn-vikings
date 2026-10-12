@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+:root {
+  --bg: oklch(0.985 0.012 95);
+  --surface: oklch(1 0 0);
+  --tint: oklch(0.96 0.022 95);
+  --ink: oklch(0.24 0.03 155);
+  --muted: oklch(0.45 0.03 155);
+  --line: oklch(0.89 0.02 100);
+  --brand: oklch(0.4 0.08 160);
+  --brand-deep: oklch(0.3 0.065 162);
+  --brand-soft: oklch(0.93 0.035 150);
+  --cta: oklch(0.8 0.15 85);
+  --cta-hover: oklch(0.75 0.15 80);
+  --star: oklch(0.78 0.16 75);
+}
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-tint: var(--tint);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-brand: var(--brand);
+  --color-brand-deep: var(--brand-deep);
+  --color-brand-soft: var(--brand-soft);
+  --color-cta: var(--cta);
+  --color-cta-hover: var(--cta-hover);
+  --color-star: var(--star);
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-head: var(--font-heading), ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  background: var(--bg) !important;
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  background: var(--bg) !important;
+  color: var(--ink);
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  font-kerning: normal;
+}
+@media (min-width: 768px) { body { font-size: 1.125rem; } }
+
+h1, h2, h3 {
+  font-family: var(--font-heading), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+h1 { line-height: 1.06; }
+h2 { line-height: 1.12; }
+h3 { line-height: 1.2; }
+p { text-wrap: pretty; }
+
+.reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.45s cubic-bezier(0.23, 1, 0.32, 1), transform 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.reveal.is-in { opacity: 1; transform: none; }
+
+.btn-press { transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1), background-color 200ms ease, border-color 200ms ease; }
+.btn-press:active { transform: scale(0.97); }
+
+details summary { list-style: none; cursor: pointer; }
+details summary::-webkit-details-marker { display: none; }
+.faq-icon { transition: transform 200ms cubic-bezier(0.23, 1, 0.32, 1); }
+details[open] .faq-icon { transform: rotate(45deg); }
+
+/* Small delight: the phone icon gives a quick ring on hover (pointer devices only) */
+@keyframes ring { 0%,100% { transform: rotate(0); } 25% { transform: rotate(-12deg); } 75% { transform: rotate(10deg); } }
+@media (hover: hover) and (pointer: fine) {
+  .ring-on-hover:hover .ring-icon { animation: ring 360ms cubic-bezier(0.23, 1, 0.32, 1) 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ring-on-hover:hover .ring-icon { animation: none; }
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .btn-press, .faq-icon { transition: none; }
+}
